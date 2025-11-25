@@ -5,6 +5,21 @@ return {
 		config = function()
 			local iron = require("iron.core")
 			local common = require("iron.fts.common")
+			local view = require("iron.view")
+
+			local custom_repl_command = function(width, height)
+				-- view.center returns a function which, when called, returns the config for the float to be called
+				-- So we create a wrapper for it that calls it, adds to the output, and returns the new config, and we
+				-- will return that function to repl_open_cmd
+				return function()
+					local win_opts = {}
+					win_opts.border = "rounded"
+					win_opts.title = "Python REPL"
+					win_opts.title_pos = "center"
+					return vim.tbl_deep_extend("force", view.center(width, height)(), win_opts)
+				end
+			end
+
 			iron.setup({
 				config = {
 					-- Whether a repl should be discarded or not
@@ -39,26 +54,19 @@ return {
 					},
 					-- How the repl window will be displayed
 					-- See below for more information
-					repl_open_cmd = require("iron.view").split.vertical.botright("30%"),
-					-- I may want to change this to be a floating window instead, which I could then focus onto and off of as I send code to it.
+					repl_open_cmd = custom_repl_command("80%", "70%"), -- See above
 				},
 				-- iron doesn't set keymaps by default anymore.
 				-- You can set them here or manually add keymaps to the functions in iron.core
+				-- NOTE: no longer using this way of setting keymaps, since I can't figure out how to
+				-- get it to play nice with which-key.nvim (that is, I can't set a description different
+				-- from the table key, so none of the which-key labels match the style). Now I'm setting
+				-- all keymaps separately, below.
 				keymaps = {
-					send_motion = "<localleader>rr",
-					visual_send = "<localleader>r<cr>",
-					send_file = "<localleader>rf<cr>",
-					send_line = "<localleader>rl",
-					send_paragraph = "<localleader>rp",
-					send_until_cursor = "<localleader>rU<cr>",
 					-- send_mark = "<localleader>rm",
 					-- mark_motion = "<localleader>mc",
 					-- mark_visual = "<localleader>mc",
 					-- remove_mark = "<localleader>md",
-					cr = "<localleader>rA<cr>",
-					interrupt = "<localleader>r<space>",
-					exit = "<localleader>rQ",
-					clear = "<localleader>rC",
 				},
 				-- If the highlight is on, you can change how it looks
 				-- For the available options, check nvim_set_hl
@@ -67,10 +75,35 @@ return {
 			})
 
 			-- iron also has a list of commands, see :h iron-commands for all available commands
-			vim.keymap.set("n", "<localleader>rS", "<cmd>IronRepl<cr>", { desc = "[R]EPL [S]tart" })
-			vim.keymap.set("n", "<localleader>rR", "<cmd>IronRestart<cr>", { desc = "[R]EPL [R]estart" })
-			vim.keymap.set("n", "<localleader>rF", "<cmd>IronFocus<cr>", { desc = "[R]EPL [F]ocus" })
-			vim.keymap.set("n", "<localleader>rH", "<cmd>IronHide<cr>", { desc = "[R]EPL [H]ide" })
+			vim.keymap.set("n", "<localleader>rr", "<cmd>IronRepl<cr>", { desc = "toggle [r]epl" })
+			vim.keymap.set("v", "<localleader>r<cr>", function()
+				iron.visual_send()
+			end, { desc = "<cr>visual send" }) -- Not entirely sure why we can't just have iron.visual_send() on its own
+			vim.keymap.set("n", "<localleader>rf", function()
+				iron.send_file()
+			end, { desc = "send [f]ile" })
+			vim.keymap.set("n", "<localleader>rl", function()
+				iron.send_line()
+			end, { desc = "send [l]ine" })
+			vim.keymap.set("n", "<localleader>ru", function()
+				iron.send_until_cursor()
+			end, { desc = "send [u]ntil cursor" })
+			vim.keymap.set("n", "<localleader>re", function()
+				iron.send(nil, string.char(13))
+			end, { desc = "send [e]nter to repl" })
+			vim.keymap.set("n", "<localleader>r<space>", function()
+				iron.send(nil, string.char(03))
+			end, { desc = "[i]nterrupt" })
+			vim.keymap.set("n", "<localleader>rq", function()
+				iron.close_repl()
+			end, { desc = "[q]uit repl" })
+			vim.keymap.set("n", "<localleader>rc", function()
+				iron.send(nil, string.char(12))
+			end, { desc = "[c]lear repl" })
+
+			vim.keymap.set("n", "<localleader>rR", "<cmd>IronRestart<cr>", { desc = "[r]epl [R]estart" })
+			vim.keymap.set("n", "<localleader>rF", "<cmd>IronFocus<cr>", { desc = "[r]epl [F]ocus" })
+			vim.keymap.set("n", "<localleader>rh", "<cmd>IronHide<cr>", { desc = "[r]epl [h]ide" })
 		end,
 	},
 }

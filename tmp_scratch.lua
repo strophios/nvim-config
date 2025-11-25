@@ -1,12 +1,29 @@
-local finders = require("telescope.finders")
-local pickers = require("telescope.pickers")
-local entry_display = require("telescope.pickers.entry_display")
-local previewers = require("telescope.previewers")
-local conf = require("telescope.config").values
-local action_state = require("telescope.actions.state")
-local actions = require("telescope.actions")
-
 -- Scratch file for testing miscellaneous piece of code during plugin or config dev
+local iron = require("iron.core")
+local view = require("iron.view")
+
+vim.print(view.center("80%", "70%"))
+
+local tmp_func = function()
+	-- local win_func = view.center(120) -- view.center returns a function which, when called, returns the config for the float to be called
+	-- So we create a wrapper that calls it, adds to the output, and returns the new config, and we return that function to repl_open_cmd
+	-- return function()
+	-- 	local win_opts = win_func()
+	-- 	-- win_opts.border = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" } -- Taking this from the telescope default
+	--
+	-- 	return win_opts
+	-- end
+	-- return win_func
+	return view.center("80%", "70%")
+end
+
+local win_opts = view.center("80%", "70%")()
+win_opts.border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" } -- Taking this from the telescope default
+win_opts.border = "rounded"
+
+vim.api.nvim_open_win(4, false, win_opts)
+vim.print(view.center("80%", "70%")())
+vim.print(tmp_func()())
 
 local M = {}
 

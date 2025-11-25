@@ -42,7 +42,7 @@ return {
 				{ "<leader>ls", group = "show [s]ymbols" },
 				{ "<leader>lc", group = "show [c]alls" },
 
-				{ "<leader>g", ":lua Snacks.lazygit.open()", desc = "open lazy[g]it" },
+				{ "<leader>g", ":lua Snacks.lazygit.open()<cr>", desc = "open lazy[g]it" },
 
 				-- { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } }, -- NOTE: I believe this is for working with gitsigns, which I'm not using to this degree
 
