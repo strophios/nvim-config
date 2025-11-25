@@ -19,7 +19,7 @@ return {
 	{ -- preview equations
 		"jbyuki/nabla.nvim",
 		keys = {
-			{ "<leader>m", ":lua require('nabla').popup()<cr>", desc = "Preview [m]ath equation" },
+			{ "<leader>m", ":lua require('nabla').popup()<cr>", desc = "preview [m]ath equation" },
 		},
 	},
 }

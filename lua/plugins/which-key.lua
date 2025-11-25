@@ -30,14 +30,14 @@ return {
 
 			-- Document existing key chains
 			spec = {
-				{ "<leader>b", group = "[B]uffer" },
-				{ "<leader>d", group = "[D]ocument outline" },
-				{ "<leader>r", group = "[R]EPL" },
-				{ "<leader>s", group = "[S]earch" },
-				{ "<leader>t", group = "[T]oggle" },
-				{ "<leader>w", group = "[W]orkspaces" },
+				{ "<leader>b", group = "[b]uffer" },
+				{ "<leader>d", group = "[d]ocument outline" },
+				{ "<leader>r", group = "[r]EPL" },
+				{ "<leader>s", group = "[s]earch" },
+				{ "<leader>t", group = "[t]oggle" },
+				{ "<leader>w", group = "[w]orkspaces" },
 				-- Documenting LSP grouping, which is a little bit a pain, since I have the top level group, but also subgroups
-				{ "<leader>l", group = "[L]SP" },
+				{ "<leader>l", group = "[l]sp" },
 				{ "<leader>lg", group = "[g]o to" },
 				{ "<leader>ls", group = "show [s]ymbols" },
 				{ "<leader>lc", group = "show [c]alls" },

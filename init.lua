@@ -4,9 +4,9 @@ vim.g.maplocalleader = " "
 
 -- Speed up development by creating keymaps for sourcing the current file
 -- or current (normal mode) or selected (visual mode) lines
-vim.keymap.set("n", "<leader><leader>x", "<cmd>source %<CR>")
-vim.keymap.set("n", "<leader>x", ":.lua<CR>")
-vim.keymap.set("v", "<leader>x", ":lua<CR>")
+vim.keymap.set("n", "<leader><leader>x", "<cmd>source %<CR>", { desc = "source current file" })
+vim.keymap.set("n", "<leader>x", ":.lua<CR>", { desc = "source current line" })
+vim.keymap.set("v", "<leader>x", ":lua<CR>", { desc = "source visual selection" })
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
