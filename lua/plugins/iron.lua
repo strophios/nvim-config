@@ -30,6 +30,17 @@ return {
 							-- Can be a table or a function that
 							-- returns a table (see below)
 							command = { "radian" },
+							format = function(lines)
+								local newlines = {}
+
+								for _, line in pairs(lines) do
+									line = line:gsub("\n", " ")
+									line = line:gsub("%s%s+", " ")
+									table.insert(newlines, line)
+								end
+
+								return common.bracketed_paste(newlines)
+							end,
 						},
 						r = {
 							command = { "radian" },
