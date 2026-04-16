@@ -4,7 +4,7 @@ return {
 	-- LSP and tooling installs manually at the system level.
 	-- Second, we are, however, still using nvim-lspconfig for easy access to intelligent
 	-- defaults and facilitating setup. Indeed, we're doing all the setup within the loading
-	-- of nvim-lspconfict.
+	-- of nvim-lspconfig.
 	-- Third...something something to do with otter.nvim and quarto.nvim, but I'm not sure
 	-- what yet, cause I don't actually have them working yet.
 	-- Finally, this implementation is mostly copied from a combination jmbuhr, vhyrro's
@@ -136,18 +136,27 @@ return {
 
 			-- Now the list of servers that we want to enable (and have installed elsewhere)
 			local servers = {
+				air = {
+					cmd = { "air", "language-server" },
+					filetypes = { "R", "r" },
+					root_markers = { "air.toml", ".air.toml", ".git" },
+				},
 				ruff = {},
 				ty = {},
 				marksman = {},
 				r_language_server = {
 					cmd = { "R", "--no-echo", "-e", "languageserver::run()" },
-					filetypes = { "r" }, -- compared with default, we remove rmarkdown and quarto, which should be handled by otter.nvim
+					filetypes = { "r", "R" }, -- compared with default, we remove rmarkdown and quarto, which should be handled by otter.nvim
 					root_dir = function(bufnr, on_dir)
 						on_dir(vim.fs.root(bufnr, ".git") or vim.uv.os_homedir())
 					end,
 					settings = {
 						r = {
 							rich_documentation = true, -- Turns out this is the default
+						},
+						server_capabilities = {
+							documentFormattingProvider = false,
+							documentRangeFormattingProvider = false,
 						},
 					},
 				},
