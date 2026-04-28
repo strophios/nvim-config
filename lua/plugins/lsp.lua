@@ -138,7 +138,7 @@ return {
 			local servers = {
 				air = {
 					cmd = { "air", "language-server" },
-					filetypes = { "R", "r" },
+					filetypes = { "r" },
 					root_markers = { "air.toml", ".air.toml", ".git" },
 				},
 				ruff = {},
@@ -146,7 +146,7 @@ return {
 				marksman = {},
 				r_language_server = {
 					cmd = { "R", "--no-echo", "-e", "languageserver::run()" },
-					filetypes = { "r", "R" }, -- compared with default, we remove rmarkdown and quarto, which should be handled by otter.nvim
+					filetypes = { "r" }, -- compared with default, we remove rmarkdown and quarto, which should be handled by otter.nvim
 					root_dir = function(bufnr, on_dir)
 						on_dir(vim.fs.root(bufnr, ".git") or vim.uv.os_homedir())
 					end,

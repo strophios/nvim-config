@@ -14,7 +14,7 @@ return {
 				return function()
 					local win_opts = {}
 					win_opts.border = "rounded"
-					win_opts.title = "Python REPL"
+					win_opts.title = "REPL" -- ideally, we change this so that it corresponds to the buffer filetype
 					win_opts.title_pos = "center"
 					return vim.tbl_deep_extend("force", view.center(width, height)(), win_opts)
 				end
@@ -22,6 +22,8 @@ return {
 
 			iron.setup({
 				config = {
+					-- Highlights the last sent block with bold
+					highlight_last = "IronLastSent",
 					-- Whether a repl should be discarded or not
 					scratch_repl = true,
 					-- Your repl definitions come here
@@ -29,32 +31,12 @@ return {
 						R = {
 							-- Can be a table or a function that
 							-- returns a table (see below)
-							command = { "radian" },
-							format = function(lines)
-								local newlines = {}
-
-								for _, line in pairs(lines) do
-									line = line:gsub("\n", " ")
-									line = line:gsub("%s%s+", " ")
-									table.insert(newlines, line)
-								end
-
-								return common.bracketed_paste(newlines)
-							end,
+							command = { "radian" }, -- Radian no longer in active dev; could try arf instead?
+							format = common.bracketed_paste,
 						},
 						r = {
 							command = { "radian" },
-							format = function(lines)
-								local newlines = {}
-
-								for _, line in pairs(lines) do
-									line = line:gsub("\n", " ")
-									line = line:gsub("%s%s+", " ")
-									table.insert(newlines, line)
-								end
-
-								return common.bracketed_paste(newlines)
-							end,
+							format = common.bracketed_paste,
 						},
 						python = {
 							command = { "python3" }, -- or { "ipython", "--no-autoindent" }
@@ -87,13 +69,13 @@ return {
 
 			-- iron also has a list of commands, see :h iron-commands for all available commands
 			vim.keymap.set("n", "<localleader>rr", "<cmd>IronRepl<cr>", { desc = "toggle [r]epl" })
-			vim.keymap.set("v", "<localleader>r<cr>", function()
+			vim.keymap.set("v", "<c-cr>", function()
 				iron.visual_send()
-			end, { desc = "<cr>visual send" }) -- Not entirely sure why we can't just have iron.visual_send() on its own
-			vim.keymap.set("n", "<localleader>rf", function()
+			end, { desc = "<c-cr>visual send" }) -- Not entirely sure why we can't just have iron.visual_send() on its own
+			vim.keymap.set("n", "<localleader>rF", function()
 				iron.send_file()
-			end, { desc = "send [f]ile" })
-			vim.keymap.set("n", "<localleader>rl", function()
+			end, { desc = "send [F]ile" })
+			vim.keymap.set({ "n", "i" }, "<c-cr>", function()
 				iron.send_line()
 			end, { desc = "send [l]ine" })
 			vim.keymap.set("n", "<localleader>ru", function()
@@ -113,7 +95,7 @@ return {
 			end, { desc = "[c]lear repl" })
 
 			vim.keymap.set("n", "<localleader>rR", "<cmd>IronRestart<cr>", { desc = "[r]epl [R]estart" })
-			vim.keymap.set("n", "<localleader>rF", "<cmd>IronFocus<cr>", { desc = "[r]epl [F]ocus" })
+			vim.keymap.set("n", "<localleader>rf", "<cmd>IronFocus<cr>", { desc = "[r]epl [f]ocus" })
 			vim.keymap.set("n", "<localleader>rh", "<cmd>IronHide<cr>", { desc = "[r]epl [h]ide" })
 		end,
 	},
