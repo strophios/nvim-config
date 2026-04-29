@@ -35,6 +35,18 @@ return {
 					})
 				end,
 			},
+			{
+				"strophios/local-library",
+				branch = "neovim-citation-workflow",
+				dependencies = {
+					"nvim-lua/plenary.nvim",
+					"nvim-telescope/telescope.nvim",
+				},
+				lazy = false,
+				config = function()
+					require("local_library").setup({})
+				end,
+			},
 		},
 		config = function()
 			-- Telescope is a fuzzy finder that comes with a lot of different things that
