@@ -30,6 +30,7 @@ require("lazy").setup({
 	require("plugins.formatting"), -- Autoformatting on save w/ conform
 	require("plugins.aerial"), -- Outline creation and (I think) navigation
 	require("plugins.quarto"), -- For handling quarto files; also includes nabla.nvim for displaying and previewing math equations.
+	require("plugins.notify"), -- Adding nvim-notify to handle notifications. potential alternatives indclude: noice.nvim
 
 	-- To-do
 	-- quarto.nvim
