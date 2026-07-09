@@ -37,7 +37,6 @@ return {
 			},
 			{
 				"strophios/local-library",
-				branch = "neovim-citation-workflow",
 				dependencies = {
 					"nvim-lua/plenary.nvim",
 					"nvim-telescope/telescope.nvim",
@@ -84,10 +83,14 @@ return {
 						},
 					},
 				},
-				-- pickers = {}
+				pickers = { -- Irritatingly, I can't seem to find a way to set a theme universally across pickers; also not 100% on liking ivy more anyways
+					-- help_tags = { theme = "ivy" },
+					-- keymaps = { theme = "ivy" },
+				},
 				extensions = {
 					["ui-select"] = {
 						require("telescope.themes").get_dropdown(),
+						-- require("telescope.themes").get_ivy(),
 					},
 				},
 			})

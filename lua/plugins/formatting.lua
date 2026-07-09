@@ -44,12 +44,83 @@ return {
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
 		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-mini/mini.nvim" }, -- if you use the mini.nvim suite
-		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.icons' },        -- if you use standalone mini plugins
-		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
 		---@module 'render-markdown'
 		---@type render.md.UserConfig
 		opts = {
 			completions = { lsp = { enabled = true } },
+			latex = { enabled = false },
+		},
+	},
+	{
+		"folke/snacks.nvim",
+		---@type snacks.Config
+		opts = {
+			image = {
+				doc = {
+					float = true,
+					max_width = 160, -- 2x the default
+					max_height = 40, -- the default
+				},
+				math = {
+					enabled = true,
+					latex = {
+						font_size = "large",
+					},
+				},
+			},
+		},
+	},
+	{
+		"bngarren/checkmate.nvim",
+		ft = "markdown", -- Lazy loads for Markdown files matching patterns in 'files'
+		opts = {
+			files = { "**/tasks/projects/*.md", "**/tasks/*.md" },
+			todo_states = {
+				unchecked = {
+					marker = "[ ]",
+				},
+				checked = {
+					marker = "[x]",
+				},
+				waiting = {
+					marker = ">",
+					markdown = ">",
+					type = "inactive",
+				},
+				needs_decision = {
+					marker = "?",
+					markdown = "?",
+					type = "incomplete",
+				},
+				dropped = {
+					marker = "-",
+					markdown = "-",
+					type = "complete",
+				},
+			},
+			metadata = {
+				due = {
+					style = { fg = "#ffb86c", bold = true },
+				},
+				plan = {
+					style = { fg = "#ffb86c" },
+				},
+				defer = {
+					style = { fg = "#9fd6d5" },
+				},
+				dropped = {
+					style = { bold = true },
+				},
+				waiting = {
+					style = { fg = "#8be9fd" },
+				},
+				est = {
+					style = { fg = "#9fd6d5" },
+				},
+				lead = {
+					style = { fg = "#ffb86c" },
+				},
+			},
 		},
 	},
 }

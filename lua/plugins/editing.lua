@@ -9,6 +9,7 @@ return {
 
 			npairs.setup()
 			npairs.add_rule(Rule("<!--", "-->", { "quarto" }):with_cr(cond.none()))
+			npairs.add_rule(Rule("<!--", "-->", { "rmd" }):with_cr(cond.none()))
 		end,
 	},
 	{
