@@ -49,6 +49,14 @@ return {
 		opts = {
 			completions = { lsp = { enabled = true } },
 			latex = { enabled = false },
+			checkbox = {
+				custom = {
+					todo = { raw = nil },
+					dropped = { raw = "[-]", rendered = "✗", scope_highlight = "@markup.strikethrough" },
+					waiting = { raw = "[>]", rendered = "" },
+					needs_decision = { raw = "[?]", rendered = "" },
+				},
+			},
 		},
 	},
 	{
@@ -75,6 +83,18 @@ return {
 		ft = "markdown", -- Lazy loads for Markdown files matching patterns in 'files'
 		opts = {
 			files = { "**/tasks/projects/*.md", "**/tasks/*.md" },
+			keys = {
+				["<leader>tc"] = {
+					rhs = "<cmd>Checkmate check<CR>",
+					desc = "Set todo item as checked (done)",
+					modes = { "n", "v" },
+				},
+				["<leader>tu"] = {
+					rhs = "<cmd>Checkmate uncheck<CR>",
+					desc = "Set todo item as unchecked (not done)",
+					modes = { "n", "v" },
+				},
+			},
 			todo_states = {
 				unchecked = {
 					marker = "[ ]",
@@ -83,20 +103,28 @@ return {
 					marker = "[x]",
 				},
 				waiting = {
-					marker = ">",
+					marker = "[>]",
 					markdown = ">",
 					type = "inactive",
 				},
 				needs_decision = {
-					marker = "?",
+					marker = "[?]",
 					markdown = "?",
 					type = "incomplete",
 				},
 				dropped = {
-					marker = "-",
+					marker = "[-]",
 					markdown = "-",
 					type = "complete",
 				},
+			},
+			style = {
+				CheckmateWaitingMarker = { fg = "#9fd6d5" },
+				-- CheckmateWaitingMainContent = {},
+				CheckmateNeedsDecisionMarker = { fg = "#8060a0" },
+				-- CheckmateNeedsDecisionMainContent = { fg = "#8060a0" },
+				CheckmateDroppedMarker = { fg = "#ffb86c" },
+				CheckmateDroppedMainContent = { strikethrough = true },
 			},
 			metadata = {
 				due = {
