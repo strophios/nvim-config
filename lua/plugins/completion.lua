@@ -88,8 +88,15 @@ return {
 			-- Default list of enabled providers defined so that you can extend it
 			-- elsewhere in your config, without redefining it, due to `opts_extend`
 			sources = {
-				default = { "lsp", "path", "snippets", "lazydev", "latex", "references" }, -- Do I want to add "buffer" as a source?
+				default = { "lsp", "path", "snippets", "lazydev", "latex", "references", "checkmate_metadata" }, -- Do I want to add "buffer" as a source?
 				providers = {
+					-- Local source (lua/blink-sources/checkmate-metadata): `@` offers checkmate
+					-- metadata tags as snippets, only in buffers where checkmate is active.
+					checkmate_metadata = {
+						name = "checkmate",
+						module = "blink-sources.checkmate-metadata",
+						score_offset = 5, -- above pandoc references, which also trigger on `@`
+					},
 					lazydev = {
 						name = "LazyDev",
 						module = "lazydev.integrations.blink",
