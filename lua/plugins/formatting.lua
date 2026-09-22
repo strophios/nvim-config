@@ -94,6 +94,44 @@ return {
 					desc = "Set todo item as unchecked (not done)",
 					modes = { "n", "v" },
 				},
+				-- Custom states: `toggle(state)` is a "set" (no-op if already in that state).
+				-- Key mnemonics are the markers themselves: [>] [-] [?]
+				["<leader>t>"] = {
+					rhs = function()
+						require("checkmate").toggle("waiting")
+					end,
+					desc = "Set todo item as waiting",
+					modes = { "n", "v" },
+				},
+				["<leader>t-"] = {
+					rhs = function()
+						require("checkmate").toggle("dropped")
+					end,
+					desc = "Set todo item as dropped",
+					modes = { "n", "v" },
+				},
+				["<leader>t?"] = {
+					rhs = function()
+						require("checkmate").toggle("needs_decision")
+					end,
+					desc = "Set todo item as needs decision",
+					modes = { "n", "v" },
+				},
+				["<leader>tn"] = {
+					rhs = "<cmd>Checkmate create<CR>",
+					desc = "Create todo item",
+					modes = { "n", "v" },
+				},
+				["<leader>t]"] = {
+					rhs = "<cmd>Checkmate cycle_next<CR>",
+					desc = "Cycle todo item(s) to the next state",
+					modes = { "n", "v" },
+				},
+				["<leader>t["] = {
+					rhs = "<cmd>Checkmate cycle_previous<CR>",
+					desc = "Cycle todo item(s) to the previous state",
+					modes = { "n", "v" },
+				},
 			},
 			todo_states = {
 				unchecked = {
