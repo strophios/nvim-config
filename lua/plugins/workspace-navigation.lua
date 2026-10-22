@@ -28,6 +28,10 @@ return {
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 		},
+		opts = {
+			width = 0.5,
+			height = 0.5,
+		},
 		keys = {
 			{
 				"<leader>bb",
