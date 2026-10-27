@@ -44,6 +44,11 @@ return {
 				-- enables treesitter based indentation
 				vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 			end
+			-- .Rmd/.qmd buffers get filetypes rmd/quarto, which have no parser of their
+			-- own. Without this alias get_lang() returns the bare filetype, the attach
+			-- below silently fails, and the buffer falls back to legacy regex syntax,
+			-- whose bounded sync lookback mis-highlights long files as one code block.
+			vim.treesitter.language.register("markdown", { "rmd", "quarto" })
 			local available_parsers = require("nvim-treesitter").get_available()
 			vim.api.nvim_create_autocmd("FileType", {
 				callback = function(args)

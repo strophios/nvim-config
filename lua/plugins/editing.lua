@@ -74,7 +74,7 @@ return {
 		opts = {
 			lang = {
 				quarto = "<!-- %s -->",
-				rmarkdown = "<!-- %s -->",
+				rmd = "<!-- %s -->",
 			},
 		},
 	},

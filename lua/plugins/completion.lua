@@ -5,7 +5,7 @@ return {
 		dependencies = {
 			{ "rafamadriz/friendly-snippets" },
 			{ "folke/lazydev.nvim" },
-			{ "strophios/blink-cmp-pandoc-references", branch = "dev", ft = { "quarto", "markdown", "rmarkdown" } },
+			{ "strophios/blink-cmp-pandoc-references", branch = "dev", ft = { "quarto", "markdown", "rmd" } },
 			{ "erooke/blink-cmp-latex" },
 			{ "xzbdmw/colorful-menu.nvim" },
 		},
@@ -117,7 +117,7 @@ return {
 					-- NOTE: ideally I'd find a way to toggle this as needed, since the snippets are actually pretty cool sometimes
 					snippets = {
 						enabled = function()
-							return not vim.tbl_contains({ "markdown", "quarto", "rmarkdown" }, vim.bo.filetype)
+							return not vim.tbl_contains({ "markdown", "quarto", "rmd" }, vim.bo.filetype)
 						end,
 					},
 				},
